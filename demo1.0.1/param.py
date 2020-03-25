@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-# # __from__ = 'https://github.com/wsqing12580/demo.git'
+# # __from__ = 'https://github.com/wsqing12580/awaken_test.git'
 # # __author__ = 'Awaken'
 # # __mtime__ = '2020/3/24 22:00
 # # __File__  = param.py
 
 import json
 import xlrd #   xlrd是读Excel的库，xlwt是写Excel的库
+import os
+
 class Param(object):
     def __init__(self,paramConf='{}'):
         self.paramConf = json.loads(paramConf)
@@ -133,6 +135,22 @@ class ParamFactory(object):
             'xls': XLS(paramConf)
         }
         return map_[type]
+
+
+class parafile(object):
+    #   parafile    返回测试用例表中的数据至searchparam_dict字典，运行测试用例执行循环字典数据
+    #   需要Excel 参数化测试用例，只要导入parafile这个类就可以用
+
+    def paraDict(path,filename,sheet=0):  #path文件路径、filename文件名、sheet工作表
+        curPath = os.path.abspath(path)
+        # 定义存储参数的excel文件路径
+        searchparamfile = curPath + filename  # searchparamfile ：Excel文件绝对路径
+        # 调用参数类完成参数读取，返回是一个字典，包含全部的excel数据除去excel的第一行表头说明
+        searchparam_dict = ParamFactory().chooseParam('xls', {'file': searchparamfile, 'sheet': sheet}).paramAlllineDict()
+        #   xls ：type入参，文件类型
+        #   sheet：用例在Excel的工作表位置 从0起始,默认是0
+        #   paramAlllineDict    获取全部参数
+        return searchparam_dict
 
 '''
 if __name__=='__main__':

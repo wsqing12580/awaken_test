@@ -1,12 +1,19 @@
 # -*- coding: utf-8 -*-
-# # __from__ = 'https://github.com/wsqing12580/demo.git'
+# # __from__ = 'https://github.com/wsqing12580/awaken_test.git'
 # # __author__ = 'Awaken'
 # # __mtime__ = '2020/3/24 22:00
+# # __uptime__ = '2020/3/25 19:10
 # # __File__  = param_login.py
+## __status__ == finish
+
+"""
+    Excel参数化登录，保留
+
+"""
 
 from common import Common
-from param import ParamFactory
-import unittest,os,json,requests
+from param import parafile
+import unittest
 
 LUrl = 'https://u-api-test2.ecpei.cn'
 comm = Common(LUrl) # 调用common类
@@ -31,41 +38,36 @@ class login_input():
 
 class login(unittest.TestCase):
         def test_login1(self): #    正确的账户和密码
-            #   读取文件参数
-            curPath = os.path.abspath(r'E:\Dev\demo1.0.1\file')
-            # 定义存储参数的excel文件路径
-            searchparamfile = curPath + '/ryp_login.xls'  # searchparamfile ：Excel文件绝对路径
-            # 调用参数类完成参数读取，返回是一个字典，包含全部的excel数据除去excel的第一行表头说明
-            searchparam_dict = ParamFactory().chooseParam('xls',
-                                                          {'file': searchparamfile, 'sheet': 0}).paramAlllineDict()
-            #   xls ：type入参，文件类型
-            #   sheet：用例在Excel的工作表位置
-            #   paramAlllineDict    获取全部参数
-
+            Ldict = parafile.paraDict(r'E:/Dev/demo1.0.1/file','/ryp_login.xls')  # 所有参数的字典
+            #   E:/Dev/demo1.0.1/file
+            h = 0   #   成功数
+            j = 0   #   失败数
             i = 0
-            while i < len(searchparam_dict):
+            while i < len(Ldict):
                 # 读取通过参数类获取的第i行的参数
-                username = searchparam_dict[i]['username']  # 读取username
-                password = searchparam_dict[i]['password']
+                username = Ldict[i]['username']  # 读取username
+                password = Ldict[i]['password']
                 # 读取通过参数类获取的第i行的预期
-                exp = searchparam_dict[i]['exp']
+                exp = Ldict[i]['exp']
 
-                lo = login_input.test_login(username, password)
-                print('运行结果',lo)
-                result = lo['message']
-                # print(i,'登录返回json：', lo)
-                # uid = lo['data']['uid']
-                # token = lo['data']['token']
-                # return uid,token
-                self.assertEqual(result, exp)
-                # print('运行message：',result)
-                # print('username=',username,'password',password)
+                result = login_input.test_login(username, password)
+                re_meg = result['message']  #   读取message的值跟预期的值进行比较
+                self.assertEqual(re_meg, exp)
+                print('测试用例>>username：',username,'password：',password)
                 i = i + 1
-                print('测试用例数：',i)
+            #     try:
+            #         self.assertEqual(re_meg, exp)
+            #         h += 1
+            #     except AssertionError as e:  # 断言语句失败
+            #         #   怎么在参数化  断言错误之后继续执行后面的测试用例且可以统计到错误的用例数
+            #         print('测试失败，入参username：', username, '第',i,'条测试用例','错误说明', e)
+            #         j += 1
+            #
+            # print('测试用例数', h + j, '测试通过:', h, '测试失败', j)
 
 
-# if __name__ == "__main__":
-#     #   unittest.main()
+if __name__ == "__main__":
+      unittest.main()
 #     #   构造测试套件
 #     suite = unittest.TestSuite()#TestSuite 测试套件
 #     suite.addTest(login("test_login1"))

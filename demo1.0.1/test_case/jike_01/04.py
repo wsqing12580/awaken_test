@@ -11,10 +11,6 @@ password = 'criss'
 # 拼凑body的参数
 payload = 'username=' + username + '&password=' + password
 
-# payload = {
-# 'username' : 'criss',
-# 'password' : 'criss'
-# }
 comm = Common('http://127.0.0.1:12356')
 response_login = comm.post(uri,params=payload)
 print('Response内容：' + response_login.text)

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # # __from__ = 'https://github.com/wsqing12580/awaken_test.git'
 # # __author__ = 'Awaken'
-# # __mtime__ = '2020/3/24 22:00
-# # __File__  = Testrunner.py
+# # __mtime__ = '2020/3/25 20:00
+# # __File__  = runtest.py
+## __status__ == finish
 
 import time,os,unittest
 from HTMLTestRunner_cn import HTMLTestRunner
@@ -17,6 +18,9 @@ class TestRunner(object):
         self.des =  description #   定义测试报告的副标题
 
     def run(self):
+        name = 'result' #   测试报告文件名尾缀
+        path = './test_case/jike_01'    #   测试脚本路径
+        # path = './test_case/jike_01'
 
         for filename in os.listdir(self.cases):
             if filename == "test_report":
@@ -25,12 +29,13 @@ class TestRunner(object):
             os.mkdir(self.cases + '/test_report')
 
         now = time.strftime("%Y-%m-%d_%H_%M_%S")
-        fp = open("../test_report/" + now + "测试报告.html", 'wb')  # 打开文件，没有自动创建
+        fp = open("./test_report/" + now + name+".html", 'wb')  # 打开文件，没有自动创建
         # tests = unittest.defaultTestLoader.discover("./ryp_01", pattern='*.py', top_level_dir=None)
-        tests = unittest.defaultTestLoader.discover("./ryp_01", pattern='*.py', top_level_dir=None)
+        tests = unittest.defaultTestLoader.discover(path, pattern='*.py', top_level_dir=None)
+        # path 测试脚本路径
+        # pattern   筛选测试脚本文件
 
         runner = HTMLTestRunner(stream=fp, title=self.tille, description=self.des)  #stream 指定测试报告文件
-
         runner.run(tests)
         fp.close()
 
@@ -42,20 +47,4 @@ class TestRunner(object):
 if __name__ == '__main__':
     test = TestRunner()
     test.run()
-
-
-# class test_equal(unittest.TestCase):
-#     def test_equal1(self): #  判断a和b是否相等
-#         a = 1
-#         b = 2
-#         self.assertEqual(a, b)
-#
-# if __name__ == "__main__":
-#     #   构造测试套件
-#     suite = unittest.TestSuite()
-#     test_cases  = [test_equal("test_equal1")]
-#     suite.addTests(test_cases)
-#     #   执行测试
-#     runner = unittest.TextTestRunner(verbosity=2)
-#     runner.run(suite)
 

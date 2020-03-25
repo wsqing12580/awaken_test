@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# # __from__ = 'https://github.com/wsqing12580/demo.git'
+# # __from__ = 'https://github.com/wsqing12580/awaken_test.git'
 # # __author__ = 'Awaken'
 # # __mtime__ = '2020/3/24 22:00
 # # __File__  = common.py

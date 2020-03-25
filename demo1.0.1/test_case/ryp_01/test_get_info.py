@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# # __from__ = 'https://github.com/wsqing12580/demo.git'
+# # __from__ = 'https://github.com/wsqing12580/awaken_test.git'
 # # __author__ = 'Awaken'
 # # __mtime__ = '2020/3/24 22:00
 # # __File__  = test_get_info.py
 """
-    本文件采用globals()函数存储上一接口数据给下一接口利用
+    本文件采用globals()函数存储上一接口数据给下一接口利用,已完成，保留
 """
 
 from common import Common
