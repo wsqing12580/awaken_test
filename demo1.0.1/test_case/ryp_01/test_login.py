@@ -7,14 +7,17 @@
 """
     在测试步骤中写死接口入参，保留
 """
-
-from common import Common
 import unittest
+import config,common   #   导入域名、接口名配置config
 
-LUrl = 'https://u-api-test2.ecpei.cn'
-comm = Common(LUrl) # 调用common类
+uUrl = config.urls()['uUrl']    #   用户管理域名
+logine = config.interfaces()['login']    #   登录接口名
+# print(uUrl)
+
+# uUrl = 'https://u-api-test2.ecpei.cn'
+comm = common.Common(uUrl) # 调用common类
 #登录页路由
-uri = '/api/user/login'
+# uri = '/api/user/login'
 
 class login_input():
     # 实现登录功能
@@ -29,7 +32,7 @@ class login_input():
             'identity_no': '1002',
             'app_type': 2
         }
-        res_login = comm.post(uri, params=payload)
+        res_login = comm.post(logine, params=payload)
         return res_login.json()
 
 

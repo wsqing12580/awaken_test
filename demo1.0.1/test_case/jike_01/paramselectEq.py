@@ -7,17 +7,15 @@
 
     #   参数化测试用例
 #引入Common、parafile类
-from common import Common
 from param import parafile
-import json,unittest
+import json,unittest,common,time
 
-comm= Common('http://127.0.0.1:12356')
+comm= common.Common('http://127.0.0.1:12356')
 uri_selectEq = '/selectEq'
 
 class strdate(unittest.TestCase):
     def test_str(self):
         a = parafile.paraDict(r'E:/Dev/demo1.0.1/file', '/selectEq.xls')  # 所有参数的字典
-        #   r'../../file'
         h = 0   #成功数
         j = 0   #失败数
         i = 0
@@ -26,10 +24,9 @@ class strdate(unittest.TestCase):
             exp = a[i]["exp"]
             payload = 'equipmentid='+str1
             response_selectEq = comm.post(uri_selectEq, params=payload)
-            # res = json.dumps(response_selectEq.json())
             re = json.dumps(response_selectEq.json()['Message'])
             i = i + 1
-            print('Response内容：' + re)
+            # print('Response内容：' + re)
             self.assertIn(exp, re)
         #     try:
         #         self.assertIn(exp, re)

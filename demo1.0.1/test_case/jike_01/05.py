@@ -2,8 +2,8 @@
 # # __from__ = '极客时间 - 接口测试入门'
 
 # Python代码中引入requests库，引入后才可以在你的代码中使用对应的类以及成员函数
-from common import Common
-comm = Common('http://127.0.0.1:12356')
+import common
+comm = common.Common('http://127.0.0.1:12356')
 # 实例化自己的Common
 # 建立uri_index的变量，存储战场的首页路由
 uri_index = '/'

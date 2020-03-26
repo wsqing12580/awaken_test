@@ -10,13 +10,12 @@
     Excel参数化登录，保留
 
 """
-
-from common import Common
-from param import parafile
-import unittest
+# from param import parafile
+import unittest,common
 
 LUrl = 'https://u-api-test2.ecpei.cn'
-comm = Common(LUrl) # 调用common类
+comm = common.Common(LUrl) # 调用common类
+parafile = common.parafile  #   param.parafile获取全部参数函数
 #登录页路由
 uri = '/api/user/login'
 
@@ -38,7 +37,7 @@ class login_input():
 
 class login(unittest.TestCase):
         def test_login1(self): #    正确的账户和密码
-            Ldict = parafile.paraDict(r'E:/Dev/demo1.0.1/file','/ryp_login.xls')  # 所有参数的字典
+            Ldict = parafile.paraDict(r'E:\Dev\DEV1.0.2\file','/ryp_login.xls')  # 所有参数的字典
             #   E:/Dev/demo1.0.1/file
             h = 0   #   成功数
             j = 0   #   失败数

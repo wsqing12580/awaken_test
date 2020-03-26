@@ -7,11 +7,11 @@
     本文件采用globals()函数存储上一接口数据给下一接口利用,已完成，保留
 """
 
-from common import Common
 import unittest
+import common
 
 UUrl = 'https://u-api-test2.ecpei.cn'
-comm = Common(UUrl) # 调用common类
+comm = common.Common(UUrl) # 调用common类
 
 Luri = '/api/user/login'    #   登录接口名
 Gurl = '/api/identity/base/get_base_info?'  #  获取基本信息接口名

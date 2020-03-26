@@ -19,7 +19,7 @@ class TestRunner(object):
 
     def run(self):
         name = 'result' #   测试报告文件名尾缀
-        path = './test_case/jike_01'    #   测试脚本路径
+        path = './test_case/ryp_01'    #   测试脚本路径
         # path = './test_case/jike_01'
 
         for filename in os.listdir(self.cases):
